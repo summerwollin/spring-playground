@@ -19,9 +19,29 @@ public class HelloControllerTest {
     MockMvc mvc;
 
     @Test
-    public void testHomepage() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/");
+    public void canGetHello() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.get("/hello");
         this.mvc.perform(request).andExpect(content().string("Hello from Spring!"));
     }
+
+    @Test
+    public void canPostHello() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.post("/hello");
+        this.mvc.perform(request).andExpect(content().string("POSTed to hello!"));
+    }
+
+    @Test
+    public void canPatchHello() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.patch("/hello");
+        this.mvc.perform(request).andExpect(content().string("PATCHed hello"));
+    }
+
+    @Test
+    public void canDeleteHello() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.delete("/hello");
+        this.mvc.perform(request).andExpect(content().string("DELETEd hello"));
+    }
+
+
 
 }
