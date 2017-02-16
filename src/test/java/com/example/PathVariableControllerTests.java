@@ -13,34 +13,42 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(QueryStringController.class)
-public class QueryStringControllerTests {
+@WebMvcTest(PathVariableController.class)
+public class PathVariableControllerTests {
 
     @Autowired
     MockMvc mvc;
 
     @Test
     public void canGetByName() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/queryString/nameExample?item=testItem");
+        String genre = "drama", title = "titanic";
+
+        RequestBuilder request = MockMvcRequestBuilders.get(String.format("/pathVariable/nameExample/%s/%s", genre, title));
         this.mvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(content().string("Item is : testItem"));
+                .andExpect(content().string("Genre is : drama, title is : titanic"));
     }
 
     @Test
     public void canGetByMap() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/queryString/mapExample?item=testItem");
+        int exampleId = 1, commentId = 2;
+
+        RequestBuilder request = MockMvcRequestBuilders.get(String.format("/pathVariable/mapExample/%d/comments/%d", exampleId, commentId));
         this.mvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(content().string("{item=testItem}"));
+                .andExpect(content().string("{exampleId=1, commentId=2}"));
     }
 
     @Test
     public void canGetByObject() throws Exception {
-        RequestBuilder request = MockMvcRequestBuilders.get("/queryString/objectExample?name=Summer&grade=5");
+        Student student = new Student();
+        student.setName("Lincoln");
+        student.setGrade(5);
+
+        RequestBuilder request = MockMvcRequestBuilders.get(String.format("/pathVariable/objectExample/%s/%d", student.getName(), student.getGrade()));
         this.mvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(content().string("name is Summer, grade is 5"));
+                .andExpect(content().string("name is Lincoln, grade is 5"));
     }
 
 }
