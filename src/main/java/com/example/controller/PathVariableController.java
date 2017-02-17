@@ -1,5 +1,6 @@
-package com.example;
+package com.example.controller;
 
+import com.example.model.Student;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
