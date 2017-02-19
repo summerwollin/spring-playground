@@ -1,4 +1,13 @@
 {
-  "name": "Sabrina",
-  "ability": "the sweet lard of lards"
+  "owner": "Summer",
+  "cats": [
+    {
+      "name": "Jenny",
+      "ability": "the destroyer of worlds"
+    },
+    {
+      "name": "Calypso",
+      "ability": "the squeakiest squeaker"
+    }
+  ]
 }
