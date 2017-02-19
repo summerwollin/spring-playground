@@ -35,7 +35,7 @@ public class JSONRequestTests {
     public void canSendStringLiteral() throws Exception {
         MockHttpServletRequestBuilder request = post("/JSONRequest")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"owner\": \"Summer\", \"cats\": [{\"name\": \"Jenny\", \"ability\": \"the destroyer of worlds\"}, {\"name\": \"Calypso\", \"ability\": \"the squeakiest squeaker\"}]}");
+                .content("{ \"name\": \"Summer\", \"cats\": [{\"name\": \"Jenny\", \"ability\": \"the destroyer of worlds\"}, {\"name\": \"Calypso\", \"ability\": \"the squeakiest squeaker\"}]}");
 
         this.mvc.perform(request)
                 .andExpect(status().isOk())
@@ -59,6 +59,7 @@ public class JSONRequestTests {
         cats.add(calypso);
 
         Owner owner = new Owner();
+        owner.setName("Summer");
         owner.setCats(cats);
 
         Gson builder = new GsonBuilder().create();
@@ -75,7 +76,7 @@ public class JSONRequestTests {
 
     @Test
     public void canSendFile() throws Exception {
-        String json = getJSON("/cat.json");
+        String json = getJSON("/owner.json");
 
         MockHttpServletRequestBuilder request = post("/JSONRequest")
                 .contentType(MediaType.APPLICATION_JSON)
